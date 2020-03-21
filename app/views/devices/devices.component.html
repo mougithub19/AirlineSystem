@@ -1,0 +1,115 @@
+<div class="card">
+    <!--edit / add form-->
+    <form novalidate
+          (submit)="save(f)"
+          #f="ngForm"
+          class="card-body">
+
+      <input type="text"
+             [ngModel]="active?.form_time"
+             name="form_time"
+             required
+             class="form-control"
+             placeholder="Time"
+             #labelInput>
+      
+      
+
+      <input type="text"
+             [ngModel]="active?.form_airline"
+             name="form_airline"
+             class="form-control"
+             placeholder="Airline"
+             #labelInput>
+
+      <input type="text"
+             [ngModel]="active?.form_flightno"
+             name="form_flightno"
+             class="form-control"
+             placeholder="Flight Number"
+             #labelInput>
+
+      <select [ngModel]="active?.form_transaction"
+              name="form_transaction"
+              class="form-control" >
+              <option value="null" >Select Transaction</option>
+              <option value="ARR">Arrival</option>
+              <option value="DEP">Departure</option>
+       </select>
+      
+      <select [ngModel]="active?.form_terminal"
+              name="form_terminal"
+              required
+              class="form-control">
+              <option value="null">Select Terminal</option>
+              <option value="1">Terminal 1</option>
+              <option value="2">Terminal 2</option>
+              <option value="3">Terminal 3</option>
+              <option value="I">International</option>
+       </select> 
+
+      <input type="text"
+             [ngModel]="active?.form_gate"
+             name="form_gate"
+             class="form-control"
+             placeholder="Gate"
+             #labelInput>
+
+      <input type="text"
+             [ngModel]="active?.form_remark"
+             name="form_remark"
+             class="form-control"
+             placeholder="Remark"
+             #labelInput>
+
+      <div class="btn-group btn-group-sm m-1">
+        <button class="btn btn-warning"
+                type="submit"
+                [disabled]="f.invalid">
+          {{active?.id ? 'SAVE' : 'ADD'}}
+        </button>
+
+        <button
+            class="btn btn-light"
+            type="button"
+            *ngIf="active?.id"
+            (click)="reset()">
+          ADD NEW
+        </button>
+      </div>
+    </form>
+  </div>
+    
+  <!--Devices List -->
+  <!-- Search form -->
+  <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+  <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">Time</th>
+        <th class="th-sm">Airline</th>
+        <th class="th-sm">Flight Number</th>
+        <th class="th-sm">Transaction</th>
+        <th class="th-sm">Terminal</th>
+        <th class="th-sm">Gate</th>
+        <th class="th-sm">Remark</th>
+        <th class="th-sm">Action</th>
+  
+  
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let d of devices; let i = index" (click)="setActiveHandler(d)"> 
+        <td>{{d.form_time}}</td>
+        <td>{{d.form_airline}}</td>
+        <td>{{d.form_flightno}}</td>
+        <td>{{d.form_transaction}}</td>
+        <td>{{d.form_terminal}}</td>
+        <td>{{d.form_gate}}</td>
+        <td>{{d.form_remark}}</td>
+        <td (click)="delete(d)"> Delete     
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
